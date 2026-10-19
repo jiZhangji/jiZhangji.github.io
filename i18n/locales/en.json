@@ -1,0 +1,118 @@
+{
+  "site": {
+    "title": "zhangji",
+    "description": "A personal blog about tech, tinkering and ideas"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Articles",
+    "categories": "Categories",
+    "tags": "Tags",
+    "about": "About",
+    "links": "Links",
+    "archive": "Archive"
+  },
+  "hero": {
+    "tagline": "Understanding the truth is the first step toward freedom."
+  },
+  "home": {
+    "latest": "Latest Posts",
+    "all": "All Posts",
+    "readMore": "Read more",
+    "viewAll": "View all"
+  },
+  "post": {
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "toc": "On this page",
+    "prev": "Previous",
+    "next": "Next",
+    "views": "views",
+    "minutes": "min read",
+    "back": "Back to articles",
+    "related": "Related posts",
+    "notFound": "This post does not exist or has been removed.",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "comments": {
+    "title": "Comments",
+    "refresh": "Refresh",
+    "nickname": "Nickname",
+    "email": "Email (not published)",
+    "website": "Website (optional)",
+    "homepage": "Homepage",
+    "content": "Comment",
+    "submit": "Post comment",
+    "note": "Shown right after submitting. Please be kind.",
+    "empty": "No comments yet — be the first!",
+    "placeholder": "Say something…"
+  },
+  "categories": {
+    "title": "Categories"
+  },
+  "tags": {
+    "title": "Tags"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "A little bit about me."
+  },
+  "links": {
+    "title": "Friend Links",
+    "subtitle": "Let's exchange links!",
+    "notice": "How to apply",
+    "rule1": "Links are listed in no particular order",
+    "rule2": "Send: site name, description, domain and avatar URL",
+    "empty": "No friend links yet.",
+    "apply": "Apply",
+    "visit": "Visit site"
+  },
+  "search": {
+    "title": "Search",
+    "open": "Search posts",
+    "placeholder": "Search titles, excerpts, tags…",
+    "hint": "↑↓ to navigate · Enter to open · Esc to close",
+    "empty": "No matching posts",
+    "loading": "Loading index…",
+    "results": "Results",
+    "shortcut": "Quick search"
+  },
+  "archive": {
+    "title": "Archive",
+    "subtitle": "Every post, in chronological order.",
+    "count": "posts"
+  },
+  "lightbox": {
+    "close": "Close",
+    "hint": "Click an image to enlarge"
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "rights": "All rights reserved",
+    "poweredBy": "Powered by Nuxt 3"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "lang": {
+    "switch": "Language",
+    "zh": "中文",
+    "en": "English"
+  },
+  "common": {
+    "loading": "Loading…",
+    "total": "Total",
+    "posts": "posts",
+    "notFound": "Page not found",
+    "backHome": "Back home",
+    "empty": "Nothing here yet.",
+    "page": "Page",
+    "of": "of",
+    "prevPage": "Prev",
+    "nextPage": "Next"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "zhangji-blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "zhangji's personal blog - Nuxt 3 + Nuxt Content + @nuxtjs/i18n + Tailwind CSS",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "node scripts/serve-static.mjs",
+    "preview:ssr": "nuxt preview",
+    "typecheck": "nuxt typecheck",
+    "check:static": "node --experimental-strip-types scripts/check-static.mjs",
+    "test:lab": "node --experimental-strip-types --test scripts/lab.test.mjs",
+    "test:portfolio": "node --experimental-strip-types --test scripts/portfolio.test.mjs",
+    "test:components": "node --experimental-strip-types --test scripts/portfolio-components.test.mjs",
+    "check:source": "node scripts/check-source.mjs",
+    "check:data": "tsc --project tsconfig.portfolio.json",
+    "docs:github": "node --experimental-strip-types scripts/sync-github.mjs",
+    "check:github": "node --experimental-strip-types scripts/sync-github.mjs --check",
+    "postinstall": "nuxt prepare"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "@nuxt/content": "^3.16.1",
+    "@nuxtjs/i18n": "^10.6.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "katex": "^0.18.9",
+    "nuxt": "^3.21.11",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "shiki": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/node": "^26.6.3",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.11"
+  }
+}

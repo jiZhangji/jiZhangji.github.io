@@ -1,0 +1,35 @@
+name: Portfolio checks (no deployment)
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        base: ['/', '/preview-site/']
+    env:
+      NUXT_APP_BASE_URL: ${{ matrix.base }}
+      NUXT_PUBLIC_SITE_URL: https://example.org${{ matrix.base }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npm run test:portfolio
+      - run: npm run test:lab
+      - run: npm run test:components
+      - run: npm run check:data
+      - run: npm run check:source
+      - run: npm run check:github
+      - run: npm run typecheck
+      - run: npm run generate
+      - run: npm run check:static

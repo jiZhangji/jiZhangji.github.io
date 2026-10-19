@@ -1,0 +1,4 @@
+# Pinned to the version this project was built and verified with locally.
+# Must be >= 22.13.0 (or 23.4.0+): below that, `node:sqlite` still requires
+# the `--experimental-sqlite` flag and the Nuxt Content build will fail.
+24.18.0

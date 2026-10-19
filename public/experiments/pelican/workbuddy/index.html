@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>鹈鹕骑行 · 海岸公路</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:#070a14;color:#eef2f8;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif}
+canvas{display:block}
+#hud{position:fixed;inset:0;pointer-events:none;z-index:10;padding:14px;display:flex;flex-direction:column;
+  justify-content:space-between;opacity:0;transition:opacity .8s ease}
+#hud.on{opacity:1}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.panel{background:rgba(10,16,30,.46);border:1px solid rgba(150,190,255,.16);border-radius:14px;
+  padding:10px 13px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.stats{display:flex;gap:16px}
+.stat{display:flex;flex-direction:column;gap:2px;min-width:52px}
+.stat b{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.5px;line-height:1.1}
+.stat span{font-size:10.5px;letter-spacing:.14em;color:#8fa6c8;text-transform:uppercase}
+#clock{display:flex;align-items:center;gap:8px}
+#clockDot{width:9px;height:9px;border-radius:50%;background:#ffb066;box-shadow:0 0 10px #ffb066;flex:0 0 auto}
+#clockTxt{font-size:12.5px;letter-spacing:.06em;color:#d7e3f7}
+#cameraName{font-size:12.5px;color:#c9d8ef;margin-top:3px}
+#quality{font-size:10.5px;color:#7f96b8;margin-top:3px;letter-spacing:.06em}
+#right{padding:0}
+#keys{display:flex;flex-wrap:wrap;gap:6px 10px;max-width:330px;font-size:11.5px;color:#a9bcd8;line-height:1.5}
+#keys i{font-style:normal;display:inline-block;background:rgba(120,165,235,.15);border:1px solid rgba(140,180,240,.2);
+  border-radius:5px;padding:0 5px;margin-right:4px;font-size:10.5px;color:#cfe0f8}
+#toasts{position:fixed;top:78px;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-direction:column;
+  gap:8px;align-items:center;pointer-events:none}
+.toast{display:flex;align-items:center;gap:11px;background:linear-gradient(100deg,rgba(28,44,78,.92),rgba(16,26,48,.92));
+  border:1px solid rgba(255,196,110,.42);border-radius:13px;padding:9px 16px 9px 12px;min-width:230px;
+  box-shadow:0 10px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,210,140,.08) inset;
+  animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
+.toast.out{animation:fade .55s ease forwards}
+@keyframes pop{from{opacity:0;transform:translateY(-16px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes fade{to{opacity:0;transform:translateY(-10px) scale(.97)}}
+.toast .ic{width:30px;height:30px;border-radius:9px;background:linear-gradient(140deg,#ffc46b,#e8853c);
+  display:flex;align-items:center;justify-content:center;font-size:15px;color:#2b1a06;flex:0 0 auto}
+.toast .tt{font-size:12.5px;font-weight:600;color:#ffe6bd;letter-spacing:.03em}
+.toast .ts{font-size:11px;color:#9fb4d4;margin-top:1px}
+#rel{position:fixed;left:50%;transform:translateX(-50%);bottom:118px;z-index:15;font-size:12.5px;
+  color:#cfe0f8;background:rgba(10,16,30,.5);border:1px solid rgba(150,190,255,.16);border-radius:20px;
+  padding:6px 15px;backdrop-filter:blur(10px);opacity:0;transition:opacity .4s}
+#touch{position:fixed;inset:auto 0 0 0;z-index:16;display:none;padding:0 14px 18px;
+  justify-content:space-between;align-items:flex-end;pointer-events:none}
+#touch.on{display:flex}
+.pad{display:flex;gap:10px;pointer-events:auto}
+.btn{width:62px;height:62px;border-radius:50%;background:rgba(18,28,50,.6);border:1px solid rgba(150,190,255,.26);
+  backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:19px;color:#dce8fa;
+  user-select:none;transition:transform .08s,background .12s}
+.btn:active,.btn.hit{transform:scale(.92);background:rgba(90,140,230,.5)}
+.btn.sm{width:48px;height:48px;font-size:15px}
+#boot{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(120% 90% at 50% 12%,#20304f 0%,#0c1220 52%,#05070d 100%);transition:opacity .9s ease}
+#boot.hide{opacity:0;pointer-events:none}
+#boot h1{font-size:30px;font-weight:600;letter-spacing:.06em;
+  background:linear-gradient(96deg,#ffd79a,#ffb066 42%,#7fc8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#boot p{margin-top:11px;font-size:13px;color:#95aac9;letter-spacing:.09em}
+#boot .keys{margin-top:26px;display:grid;grid-template-columns:repeat(2,auto);gap:7px 22px;font-size:12px;color:#8ea4c4}
+#boot .keys b{color:#cfe0f8;font-weight:500}
+#go{margin-top:30px;padding:13px 44px;border-radius:34px;border:1px solid rgba(255,190,110,.5);cursor:pointer;
+  background:linear-gradient(120deg,rgba(255,190,110,.2),rgba(120,180,255,.14));color:#ffe4b8;font-size:14.5px;
+  letter-spacing:.2em;transition:all .25s}
+#go:hover{background:linear-gradient(120deg,rgba(255,190,110,.36),rgba(120,180,255,.26));transform:translateY(-2px)}
+#load{margin-top:18px;font-size:11.5px;color:#6d82a3;letter-spacing:.1em;height:14px}
+@media(max-width:720px){
+  .stat b{font-size:16px}.stat span{font-size:9px}#keys{display:none}
+  #boot h1{font-size:21px}#boot .keys{display:none}
+}
+</style>
+</head>
+<body>
+<div id="hud">
+  <div class="row">
+    <div class="panel">
+      <div class="stats">
+        <div class="stat"><b id="spd">0</b><span>km/h</span></div>
+        <div class="stat"><b id="fish">0</b><span>fish</span></div>
+        <div class="stat"><b id="dist">0</b><span>km</span></div>
+        <div class="stat"><b id="ach">0</b><span>/14 成就</span></div>
+      </div>
+      <div id="clock"><div id="clockDot"></div><div id="clockTxt">黄昏</div></div>
+    </div>
+    <div class="panel" id="right">
+      <div id="cameraName">跟随镜头</div>
+      <div id="quality">画质 高 · 60fps</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel" id="keysWrap">
+      <div id="keys">
+        <div><i>W</i><i>S</i>加速 / 刹车</div>
+        <div><i>A</i><i>D</i>变道抓鱼</div>
+        <div><i>空格</i>跳跃</div>
+        <div><i>T</i>展翅抬前轮</div>
+        <div><i>C</i>切换镜头</div>
+        <div><i>R</i>自动驾驶</div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>
+<div id="rel">自动驾驶中 · 按任意键接管</div>
+<div id="toasts"></div>
+<div id="touch">
+  <div class="pad">
+    <div class="btn" data-k="left">◀</div>
+    <div class="btn" data-k="right">▶</div>
+  </div>
+  <div class="pad">
+    <div class="btn sm" data-k="camera">◎</div>
+    <div class="btn sm" data-k="fly">✧</div>
+    <div class="btn" data-k="jump">⤒</div>
+    <div class="btn" data-k="back">▼</div>
+    <div class="btn" data-k="fwd">▲</div>
+  </div>
+</div>
+<div id="boot">
+  <h1>鹈鹕骑行 · 海岸公路</h1>
+  <p>一只戴头盔墨镜、系红围巾的鹈鹕，在海岸公路上骑车抓鱼</p>
+  <div class="keys">
+    <div><b>W / S</b> 加速与刹车</div><div><b>A / D</b> 变道抓鱼</div>
+    <div><b>空格</b> 跳跃</div><div><b>T</b> 展翅抬前轮</div>
+    <div><b>C</b> 切换 5 种镜头</div><div><b>R</b> 切换自动驾驶</div>
+  </div>
+  <div id="go">开始骑行</div>
+  <div id="load">正在构建海岸线…</div>
+</div>
+<script type="importmap">
+{"imports":{"three":"./vendor/three.module.js"}}
+</script>
+<script type="module" src="./main.js"></script>
+</body>
+</html>

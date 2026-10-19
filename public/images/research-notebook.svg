@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" fill="none">
+<rect width="1200" height="750" fill="#edf1ea"/><rect x="175" y="100" width="850" height="550" rx="4" fill="#fafaf8" stroke="#c9d4c8"/>
+<path d="M175 156h850" stroke="#d6dfd3"/><text x="209" y="135" font-family="sans-serif" font-size="16" fill="#284334">ZJ / RESEARCH &amp; NOTES</text>
+<text x="239" y="280" font-family="sans-serif" font-size="60" fill="#172423">Hi, I'm</text><text x="239" y="350" font-family="sans-serif" font-size="60" fill="#176b58">Zhang Ji.</text>
+<path d="M241 392h258M241 415h233M241 438h190" stroke="#b9c5b7" stroke-width="7"/>
+<rect x="240" y="482" width="115" height="35" fill="#203a30"/>
+<g stroke="#49765a" stroke-width="1.5"><ellipse cx="781" cy="330" rx="134" ry="40" transform="rotate(-30 781 330)"/><ellipse cx="781" cy="330" rx="99" ry="70" transform="rotate(-30 781 330)"/><ellipse cx="781" cy="330" rx="45" ry="131" transform="rotate(-30 781 330)"/></g><circle cx="781" cy="330" r="7" fill="#176b58"/>
+<text x="239" y="599" font-family="monospace" font-size="12" fill="#6e806f">VISION / REMOTE SENSING / REPRESENTATION LEARNING</text>
+</svg>

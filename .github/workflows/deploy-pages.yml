@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+      - name: Resolve Pages URL
+        shell: bash
+        run: |
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          repo="${GITHUB_REPOSITORY#*/}"
+          base="/$repo/"
+          if [[ "${repo,,}" == "$owner.github.io" ]]; then base="/"; fi
+          echo "NUXT_APP_BASE_URL=$base" >> "$GITHUB_ENV"
+          echo "NUXT_PUBLIC_SITE_URL=https://$owner.github.io${base%/}" >> "$GITHUB_ENV"
+      - run: npm run test:portfolio && npm run test:lab && npm run test:components
+      - run: npm run check:data && npm run check:source && npm run check:github
+      - run: npm run typecheck
+      - name: Generate static site
+        run: npm run generate
+      - run: npm run check:static
+
+      # `dist` is a symlink to `.output/public`; artifact uploaders do not
+      # reliably dereference symlinks, so upload the real directory.
+      - name: Disable Jekyll
+        run: touch .output/public/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" fill="none">
+<rect width="1200" height="750" fill="#edf1ea"/>
+<rect x="175" y="100" width="850" height="550" rx="4" fill="#fafaf8" stroke="#c9d4c8"/>
+<path d="M175 156h850" stroke="#d6dfd3"/>
+<text x="209" y="135" font-family="sans-serif" font-size="16" fill="#284334">ZJ / RESEARCH &amp; NOTES</text>
+<text x="239" y="285" font-family="sans-serif" font-size="58" fill="#172423">Firecrawl</text>
+<text x="239" y="345" font-family="sans-serif" font-size="24" fill="#6e806f">web pages &amp;rarr; LLM-ready data</text>
+<path d="M241 402h320M241 425h286M241 448h214" stroke="#b9c5b7" stroke-width="7"/>
+<rect x="240" y="500" width="150" height="35" fill="#203a30"/>
+<g stroke="#49765a" stroke-width="1.5" fill="none">
+<rect x="700" y="300" width="200" height="130" rx="6"/>
+<path d="M726 340h60M726 364h86M726 388h118"/>
+<path d="M700 430l-34-52h88l-20 40 34 12z" fill="#49765a" stroke="none"/>
+<path d="M742 262c18-26 52-34 76-16" />
+<path d="M758 258l-18 6 4-20" />
+</g>
+<text x="239" y="599" font-family="monospace" font-size="12" fill="#6e806f">WEB SCRAPING / CRAWLER / LLM</text>
+</svg>
